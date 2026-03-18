@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St Ives Warriors — Darts Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--bg2:#12151c;--bg3:#1a1e28;--bg4:#0e1018;--bd:rgba(255,255,255,.06);--bdf:rgba(212,175,55,.5);--t:#e8e6e3;--td:#7a8194;--tf:#3d4455;--gold:#d4af37;--goldb:#f0d060;--red:#d94f4f;--grn:#4ade80;--blu:#60a5fa;--ora:#f59e0b;--wr:#c41e3a;--wrd:#8b1528;--r:10px;--rs:6px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Serif 4',serif;background:var(--bg);color:var(--t);min-height:100vh;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(196,30,58,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(212,175,55,.04) 0%,transparent 50%);pointer-events:none;z-index:0}
+.app{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:12px}
+.hdr{text-align:center;padding:28px 16px 20px}.hdr-badge{display:inline-flex;align-items:center;gap:8px;background:var(--wr);padding:6px 18px;border-radius:30px;margin-bottom:10px}.hdr-badge span{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.hdr h1{font-family:'Oswald',sans-serif;font-size:clamp(2.2rem,7vw,3.6rem);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t);line-height:1}.hdr .sub{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--td);letter-spacing:3px;text-transform:uppercase;margin-top:6px}
+.hdr .pb{display:inline-block;margin-top:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:20px;padding:5px 16px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--td)}.hdr .pb strong{color:var(--gold)}
+.nav{display:flex;gap:3px;background:var(--bg2);border-radius:var(--r);padding:3px;margin:14px 0 20px;border:1px solid var(--bd);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav button{flex:1;min-width:max-content;padding:9px 14px;background:0;border:0;border-radius:calc(var(--r) - 2px);font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--td);cursor:pointer;transition:all .2s;white-space:nowrap}.nav button:hover{color:var(--t);background:var(--bg3)}.nav button.active{color:#fff;background:var(--wr)}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.ct{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px}.ct .i{font-size:1rem}
+.tw{overflow-x:auto;margin:0 -18px;padding:0 18px}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th{font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--td);text-align:left;padding:7px 8px;border-bottom:2px solid var(--tf);white-space:nowrap}
+td{padding:8px;border-bottom:1px solid var(--bd);white-space:nowrap}th.c,td.c{text-align:center}th.r,td.r{text-align:right}
+tr:hover td{background:rgba(255,255,255,.015)}tr.hw td{background:rgba(196,30,58,.06)}tr.hw:hover td{background:rgba(196,30,58,.1)}
+.pc{font-family:'Oswald',sans-serif;font-size:1.05rem;color:var(--td);width:28px}.p1{color:var(--gold)}.p2{color:#c0c0c0}.p3{color:#cd7f32}
+.tn{font-weight:700}.tn.hl{color:var(--wr)}
+.sg{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--gold)}.sw{color:var(--grn)}.sl{color:var(--red)}
+.fd{display:inline-block;width:20px;height:20px;border-radius:4px;font-family:'Oswald',sans-serif;font-size:.65rem;font-weight:600;line-height:20px;text-align:center;color:#fff;margin-right:2px}.fw{background:var(--grn);color:#000}.fl{background:var(--red)}.fdr{background:var(--ora);color:#000}
+.b180{display:inline-block;background:var(--red);color:#fff;font-family:'Oswald',sans-serif;font-size:.7rem;padding:1px 7px;border-radius:3px}
+.bco{display:inline-block;background:var(--grn);color:#000;font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;padding:1px 7px;border-radius:3px}
+.ph{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}.av{width:56px;height:56px;border-radius:50%;background:var(--wr);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:#fff;flex-shrink:0}
+.pn{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.stg{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:18px}.stb{background:var(--bg3);border-radius:var(--rs);padding:12px;text-align:center}.stb .v{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gold)}.stb .l{font-family:'IBM Plex Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--td);margin-top:1px}
+.fc{background:var(--bg3);border-radius:var(--rs);padding:14px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}.fc .hm{text-align:right;font-weight:700;font-size:.9rem}.fc .aw{text-align:left;font-weight:700;font-size:.9rem}.fc .sc{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);text-align:center;min-width:50px}.fc .dl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--td);text-transform:uppercase;letter-spacing:1px}.fc.wf{border-left:3px solid var(--wr)}
+.nm{background:linear-gradient(135deg,var(--wrd) 0%,var(--wr) 100%);border-radius:var(--r);padding:18px;margin-bottom:14px;text-align:center;border:1px solid rgba(255,255,255,.08)}.nm .lb{font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6);margin-bottom:6px}.nm .tm{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;text-transform:uppercase}.nm .dt{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);margin-top:4px}
+.uz{border:2px dashed var(--tf);border-radius:var(--r);padding:36px 20px;text-align:center;cursor:pointer;transition:all .3s}.uz:hover,.uz.dg{border-color:var(--gold);background:rgba(212,175,55,.03)}.uz .iu{font-size:2.2rem;margin-bottom:10px}.uz p{color:var(--td);font-size:.85rem}.uz .hn{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--tf);margin-top:6px}.uz img{max-width:100%;max-height:280px;border-radius:var(--rs);margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border:0;border-radius:var(--rs);font-family:'Oswald',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.br{background:var(--wr);color:#fff}.br:hover{background:#d6223f;transform:translateY(-1px)}.br:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.bo{background:0;border:1px solid var(--tf);color:var(--t)}.bo:hover{border-color:var(--td);background:var(--bg3)}
+.bs{padding:5px 12px;font-size:.7rem}
+.fg{margin-bottom:14px}.fg label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--bg4);border:1px solid var(--tf);border-radius:var(--rs);padding:8px 12px;color:var(--t);font-family:'Source Serif 4',serif;font-size:.85rem}.fg input:focus,.fg select:focus,.fg textarea:focus{outline:0;border-color:var(--bdf)}
+select option{background:var(--bg2)}
+.ec{background:var(--bg3);border-radius:var(--rs);padding:14px;margin-bottom:10px}.ec h4{font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);margin-bottom:8px}
+.er{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}.er:last-child{border-bottom:0}.er input,.er select{background:var(--bg4);border:1px solid var(--tf);border-radius:var(--rs);padding:5px 8px;color:var(--t);font-family:'Source Serif 4',serif;font-size:.8rem;flex:1;min-width:50px}
+.sts{padding:10px 14px;border-radius:var(--rs);font-size:.8rem;margin-bottom:14px;display:flex;align-items:center;gap:6px}.sts.ok{background:rgba(74,222,128,.08);border:1px solid var(--grn);color:var(--grn)}.sts.inf{background:rgba(96,165,250,.08);border:1px solid var(--blu);color:var(--blu)}
+.spn{display:inline-block;width:18px;height:18px;border:2px solid var(--tf);border-top-color:var(--gold);border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.dv{height:1px;background:var(--bd);margin:14px 0}.fb{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.pg{animation:fu .3s ease}@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.ck{cursor:pointer;transition:color .2s}.ck:hover{color:var(--gold)}
+.tt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg2);border:1px solid var(--gold);color:var(--t);padding:10px 22px;border-radius:var(--r);font-size:.8rem;z-index:100;transition:transform .4s cubic-bezier(.16,1,.3,1);pointer-events:none}.tt.sh{transform:translateX(-50%) translateY(0)}
+.em{text-align:center;padding:40px 16px;color:var(--td)}.em .ei{font-size:2.5rem;margin-bottom:10px;opacity:.4}
+.fr{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.85rem}.fr:last-child{border-bottom:0}.fa{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ora)}
+.pt{font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:var(--gold)}
+.sub-t{display:flex;gap:16px;margin-bottom:14px;border-bottom:1px solid var(--tf);padding-bottom:8px}.sub-t button{background:0;border:0;font-family:'IBM Plex Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);cursor:pointer;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .2s}.sub-t button:hover{color:var(--t)}.sub-t button.act{color:var(--gold);border-bottom-color:var(--gold)}
+.bar{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-top:3px}.bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+@media(max-width:600px){.app{padding:6px}.card{padding:12px}table{font-size:.7rem}th,td{padding:5px 6px}.stg{grid-template-columns:repeat(2,1fr)}.fc{gap:6px;padding:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="hdr">
+  <div class="hdr-badge"><span>⚔️ Wimborne & District · C Section</span></div>
+  <h1>St Ives Warriors</h1>
+  <div class="sub">Monday Night Darts Hub</div>
+  <div class="pb">Currently <strong>5th</strong> · 17 played · 5W 12L · 91 legs for</div>
+</div>
+<nav class="nav" id="nav"></nav>
+<div id="pg"></div>
+</div>
+<div class="tt" id="tt"></div>
+<script>
+const TABS=['league','squad','results','upload','settings'];
+const NAMES={league:'League',squad:'Squad',results:'Results',upload:'Upload',settings:'Settings'};
+let pg='league',sp=null,stab='overview';
+
+// ========= REAL DATA =========
+const LT=[
+{r:1,t:'Gypsy Drillers',p:17,w:14,l:3,f:118,pc:.824,fm:['L','W','W','W','W']},
+{r:2,t:'Green Man A',p:16,w:12,l:4,f:103,pc:.75,fm:['W','W','W','W','L']},
+{r:3,t:'Coach & Horses',p:17,w:12,l:5,f:100,pc:.706,fm:['W','W','W','W','L']},
+{r:4,t:'One Over One In',p:17,w:10,l:7,f:96,pc:.588,fm:['L','W','W','W','W']},
+{r:5,t:'St Ives Warriors',p:17,w:5,l:12,f:91,pc:.294,fm:['L','L','L','L','L']},
+{r:6,t:'Horns C',p:16,w:9,l:7,f:87,pc:.562,fm:['L','W','W','W','W']},
+{r:7,t:'CSSC B',p:17,w:7,l:10,f:86,pc:.412,fm:['L','L','W','L','L']},
+{r:8,t:'Owls Nest B',p:17,w:5,l:12,f:85,pc:.294,fm:['W','L','L','L','L']},
+{r:9,t:'Dorset Soldier A',p:17,w:8,l:9,f:81,pc:.471,fm:['W','L','L','L','W']},
+{r:10,t:'Wimborne RBL A',p:17,w:2,l:15,f:77,pc:.118,fm:['L','W','L','L','W']}];
+
+const SQ=[
+{n:'Adi',full:'Andy Butterworth',tw:0,tl:4,tg:4,dw:10,dl:4,dg:14,sw:8,sl:6,sg:14,ho:80,lo:7,s1:22,s14:3,s18:0,lp:51,lw:30,wp:.588},
+{n:'Paul G',full:'Paul Greenwood',tw:4,tl:2,tg:6,dw:0,dl:9,dg:9,sw:14,sl:3,sg:17,ho:80,lo:null,s1:18,s14:3,s18:0,lp:50,lw:26,wp:.52},
+{n:'Dave H',full:'Dave Hobbs',tw:6,tl:3,tg:9,dw:6,dl:3,dg:9,sw:6,sl:6,sg:12,ho:94,lo:5,s1:12,s14:2,s18:0,lp:47,lw:25,wp:.532},
+{n:'Callum',full:'Callum Moran',tw:4,tl:3,tg:6,dw:6,dl:9,dg:15,sw:6,sl:5,sg:11,ho:78,lo:null,s1:15,s14:4,s18:0,lp:44,lw:21,wp:.477},
+{n:'Paul A',full:'Paul Andrews',tw:3,tl:1,tg:3,dw:5,dl:5,dg:10,sw:6,sl:4,sg:10,ho:null,lo:null,s1:12,s14:2,s18:0,lp:36,lw:20,wp:.556},
+{n:'Simon',full:'Simon Riches',tw:4,tl:2,tg:6,dw:4,dl:4,dg:8,sw:8,sl:4,sg:12,ho:40,lo:null,s1:7,s14:0,s18:0,lp:39,lw:20,wp:.513},
+{n:'Dan',full:'Dan Hope',tw:5,tl:2,tg:7,dw:5,dl:5,dg:8,sw:4,sl:6,sg:10,ho:83,lo:null,s1:12,s14:4,s18:0,lp:36,lw:17,wp:.472},
+{n:'Steve S',full:'Steve Stewart',tw:2,tl:1,tg:3,dw:4,dl:3,dg:7,sw:7,sl:5,sg:12,ho:90,lo:7,s1:13,s14:0,s18:0,lp:29,lw:16,wp:.552},
+{n:'Ryan B',full:'Ryan Butterworth',tw:5,tl:2,tg:7,dw:5,dl:7,dg:12,sw:0,sl:3,sg:3,ho:41,lo:9,s1:8,s14:3,s18:0,lp:32,lw:12,wp:.375},
+{n:'Dave S',full:'David Slater',tw:0,tl:1,tg:1,dw:0,dl:1,dg:1,sw:0,sl:0,sg:0,ho:4,lo:null,s1:1,s14:0,s18:0,lp:4,lw:1,wp:.25}];
+
+const FX=[
+{d:'01 Sep',opp:'CSSC B',v:'H',r:'5-6',w:false},
+{d:'08 Sep',opp:'Green Man A',v:'H',r:'5-6',w:false},
+{d:'22 Sep',opp:'Gypsy Drillers',v:'A',r:'3-8',w:false},
+{d:'06 Oct',opp:'Crusaders',v:'H',r:'7-8',w:false,cup:true},
+{d:'13 Oct',opp:'Wimborne RBL',v:'A',r:'8-3',w:true},
+{d:'20 Oct',opp:'Coach & Horses',v:'H',r:'7-4',w:true},
+{d:'10 Nov',opp:'Horns C',v:'A',r:'7-4',w:true},
+{d:'17 Nov',opp:'One Over One In',v:'H',r:'5-6',w:false},
+{d:'24 Nov',opp:'Owls Nest B',v:'H',r:'6-5',w:true},
+{d:'01 Dec',opp:'Dorset Soldier A',v:'A',r:'5-6',w:false},
+{d:'08 Dec',opp:'CSSC B',v:'A',r:'7-4',w:true},
+{d:'15 Dec',opp:'One Over One In',v:'A',r:'5-3',w:false},
+// From WMDL - after spreadsheet stops
+{d:'05 Jan',opp:'Green Man A',v:'A',r:'3-8',w:false},
+{d:'12 Jan',opp:'Gypsy Drillers',v:'H',r:'5-6',w:false},
+{d:'02 Feb',opp:'Owls Nest B',v:'A',r:'5-6',w:false},
+{d:'09 Feb',opp:'Wimborne RBL A',v:'H',r:'5-6',w:false},
+{d:'23 Feb',opp:'Coach & Horses',v:'A',r:'5-6',w:false},
+{d:'02 Mar',opp:'Horns C',v:'H',r:'5-6',w:false},
+{d:'16 Mar',opp:'One Over One In',v:'A',r:'5-6',w:false}];
+
+const NXT={d:'23 Mar 2026',h:'St Ives Warriors',a:'Dorset Soldier A'};
+
+const SK='siw_v3';
+function ld(){try{const d=localStorage.getItem(SK);return d?JSON.parse(d):{}}catch(e){return{}}}
+function sv(d){localStorage.setItem(SK,JSON.stringify(d))}
+let D=ld();
+if(!D.apiKey)D.apiKey='';
+
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const toast=m=>{const t=$('#tt');t.textContent=m;t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),2500)};
+
+function rNav(){$('#nav').innerHTML=TABS.map(t=>`<button class="${pg===t?'active':''}" data-p="${t}">${NAMES[t]}</button>`).join('');$$('#nav button').forEach(b=>b.onclick=()=>{pg=b.dataset.p;sp=null;stab='overview';rNav();rPg()})}
+
+function rPg(){const c=$('#pg');
+switch(pg){
+case'league':c.innerHTML=rLeague();break;
+case'squad':c.innerHTML=sp?rPlayer():rSquad();break;
+case'results':c.innerHTML=rResults();break;
+case'upload':c.innerHTML=rUpload();break;
+case'settings':c.innerHTML=rSettings();break;}
+bind()}
+
+// ========= LEAGUE =========
+function rLeague(){
+const rows=LT.map((t,i)=>{const w=t.t==='St Ives Warriors';const fm=t.fm.map(f=>`<span class="fd f${f.toLowerCase()}">${f}</span>`).join('');
+return `<tr class="${w?'hw':''}"><td class="pc ${i<3?'p'+(i+1):''}">${t.r}</td><td><span class="tn ${w?'hl':''}">${t.t}</span></td><td class="c">${t.p}</td><td class="c sw">${t.w}</td><td class="c sl">${t.l}</td><td class="c">${t.f}</td><td class="c">${(t.pc*100).toFixed(0)}%</td><td class="c">${fm}</td></tr>`}).join('');
+return `<div class="pg">
+<div class="nm"><div class="lb">Next Match</div><div class="tm">Warriors vs ${NXT.a}</div><div class="dt">${NXT.d} · 8:00 PM · Home</div></div>
+<div class="card"><div class="ct"><span class="i">🏆</span>C Section Standings</div><div class="tw"><table><thead><tr><th>#</th><th>Team</th><th class="c">P</th><th class="c">W</th><th class="c">L</th><th class="c">For</th><th class="c">Win%</th><th class="c">Form</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+</div>`}
+
+// ========= SQUAD =========
+function rSquad(){
+const sorted=[...SQ].sort((a,b)=>b.lw-a.lw);
+const totLW=SQ.reduce((s,p)=>s+p.lw,0);
+const totLP=SQ.reduce((s,p)=>s+p.lp,0);
+
+const tabs=`<div class="sub-t"><button class="${stab==='overview'?'act':''}" data-st="overview">Overview</button><button class="${stab==='triples'?'act':''}" data-st="triples">Triples</button><button class="${stab==='doubles'?'act':''}" data-st="doubles">Doubles</button><button class="${stab==='singles'?'act':''}" data-st="singles">Singles</button><button class="${stab==='scoring'?'act':''}" data-st="scoring">Scoring</button></div>`;
+
+let tbl='';
+if(stab==='overview'){
+tbl=`<table><thead><tr><th>#</th><th>Player</th><th class="c">Legs P</th><th class="c">Legs W</th><th class="c">Win%</th><th class="c">Best CO</th></tr></thead><tbody>${sorted.map((p,i)=>`<tr><td class="pc ${i<3?'p'+(i+1):''}">${i+1}</td><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c">${p.lp}</td><td class="c sg">${p.lw}</td><td class="c">${(p.wp*100).toFixed(0)}%</td><td class="c">${p.ho||'—'}</td></tr>`).join('')}</tbody></table>`;
+}else if(stab==='triples'){
+const s=[...SQ].sort((a,b)=>(b.tg?b.tw/b.tg:0)-(a.tg?a.tw/a.tg:0));
+tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.filter(p=>p.tg).map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c sw">${p.tw}</td><td class="c sl">${p.tl}</td><td class="c">${p.tg}</td><td class="c">${p.tg?(p.tw/p.tg*100).toFixed(0)+'%':'—'}</td></tr>`).join('')}</tbody></table>`;
+}else if(stab==='doubles'){
+const s=[...SQ].sort((a,b)=>(b.dg?b.dw/b.dg:0)-(a.dg?a.dw/a.dg:0));
+tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.filter(p=>p.dg).map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c sw">${p.dw}</td><td class="c sl">${p.dl}</td><td class="c">${p.dg}</td><td class="c">${p.dg?(p.dw/p.dg*100).toFixed(0)+'%':'—'}</td></tr>`).join('')}</tbody></table>`;
+}else if(stab==='singles'){
+const s=[...SQ].sort((a,b)=>b.sw-a.sw);
+tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.filter(p=>p.sg).map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c sw">${p.sw}</td><td class="c sl">${p.sl}</td><td class="c">${p.sg}</td><td class="c">${p.sg?(p.sw/p.sg*100).toFixed(0)+'%':'—'}</td></tr>`).join('')}</tbody></table>`;
+}else if(stab==='scoring'){
+const s=[...SQ].sort((a,b)=>(b.s1+b.s14*3+b.s18*10)-(a.s1+a.s14*3+a.s18*10));
+tbl=`<table><thead><tr><th>Player</th><th class="c">100+</th><th class="c">140+</th><th class="c">180</th><th class="c">Best CO</th><th class="c">Worst</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c">${p.s1}</td><td class="c" style="color:var(--ora)">${p.s14}</td><td class="c" style="color:var(--red)">${p.s18||'—'}</td><td class="c">${p.ho||'—'}</td><td class="c" style="color:var(--tf)">${p.lo||'—'}</td></tr>`).join('')}</tbody></table>`;
+}
+
+return `<div class="pg"><div class="card">
+<div class="ct"><span class="i">⚔️</span>Warriors Squad — Season Stats</div>
+<div class="stg">
+<div class="stb"><div class="v">${SQ.length}</div><div class="l">Players</div></div>
+<div class="stb"><div class="v">${totLW}</div><div class="l">Total Legs Won</div></div>
+<div class="stb"><div class="v">${totLP}</div><div class="l">Total Legs Played</div></div>
+<div class="stb"><div class="v">${(totLW/totLP*100).toFixed(0)}%</div><div class="l">Overall Win %</div></div>
+</div>
+${tabs}
+<div class="tw">${tbl}</div>
+<p style="font-size:.7rem;color:var(--tf);margin-top:10px">Stats through 15 Dec 2025 (12 weeks recorded). 5 weeks pending.</p>
+</div></div>`}
+
+// ========= PLAYER =========
+function rPlayer(){
+const p=SQ.find(x=>x.n===sp);if(!p)return '<div class="pg"><p>Not found</p></div>';
+const init=(p.full).split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+const allS=[...SQ].sort((a,b)=>b.lw-a.lw);const rank=allS.findIndex(x=>x.n===p.n)+1;
+const totW=p.tw+p.dw+p.sw;const totG=p.tg+p.dg+p.sg;
+
+return `<div class="pg">
+<button class="btn bo bs" id="bk" style="margin-bottom:12px">← Squad</button>
+<div class="card">
+<div class="ph"><div class="av">${init}</div><div><div class="pn">${p.full}</div><div style="color:var(--td);font-size:.8rem">Squad Rank #${rank} · St Ives Warriors</div></div></div>
+<div class="stg">
+<div class="stb"><div class="v">${p.lw}</div><div class="l">Legs Won</div></div>
+<div class="stb"><div class="v">${(p.wp*100).toFixed(0)}%</div><div class="l">Win Rate</div></div>
+<div class="stb"><div class="v">${p.ho||'—'}</div><div class="l">Best Checkout</div></div>
+<div class="stb"><div class="v">${p.s1}</div><div class="l">100+ Scores</div></div>
+<div class="stb"><div class="v">${p.s14}</div><div class="l">140+ Scores</div></div>
+<div class="stb"><div class="v">${p.lp}</div><div class="l">Legs Played</div></div>
+</div>
+<div class="ct" style="margin-top:8px"><span class="i">📊</span>Breakdown</div>
+<div class="tw"><table><thead><tr><th>Format</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>
+<tr><td>Triples</td><td class="c sw">${p.tw}</td><td class="c sl">${p.tl}</td><td class="c">${p.tg}</td><td class="c">${p.tg?(p.tw/p.tg*100).toFixed(0)+'%':'—'}</td></tr>
+<tr><td>Doubles</td><td class="c sw">${p.dw}</td><td class="c sl">${p.dl}</td><td class="c">${p.dg}</td><td class="c">${p.dg?(p.dw/p.dg*100).toFixed(0)+'%':'—'}</td></tr>
+<tr><td>Singles</td><td class="c sw">${p.sw}</td><td class="c sl">${p.sl}</td><td class="c">${p.sg}</td><td class="c">${p.sg?(p.sw/p.sg*100).toFixed(0)+'%':'—'}</td></tr>
+<tr style="border-top:2px solid var(--tf)"><td style="font-weight:700">Total</td><td class="c sw" style="font-weight:700">${totW}</td><td class="c sl" style="font-weight:700">${totG-totW}</td><td class="c" style="font-weight:700">${totG}</td><td class="c sg">${totG?(totW/totG*100).toFixed(0)+'%':'—'}</td></tr>
+</tbody></table></div>
+</div></div>`}
+
+// ========= RESULTS =========
+function rResults(){
+const rows=FX.map(f=>{
+const parts=f.r.split('-');const us=f.v==='H'?parseInt(parts[0]):parseInt(parts[1]);const them=f.v==='H'?parseInt(parts[1]):parseInt(parts[0]);
+const won=us>them;const score=f.r;
+const homeTeam=f.v==='H'?'St Ives Warriors':f.opp;const awayTeam=f.v==='A'?'St Ives Warriors':f.opp;
+const hs=f.v==='H'?parseInt(parts[0]):parseInt(parts[1]);const as_=f.v==='H'?parseInt(parts[1]):parseInt(parts[0]);
+// Correct: show real score as listed
+return `<div class="fc wf">
+<div class="hm" style="${parseInt(parts[0])>parseInt(parts[1])?'color:var(--grn)':''}">${homeTeam}</div>
+<div><div class="sc">${f.r}</div><div class="dl">${f.d}${f.cup?' · Cup':''}</div></div>
+<div class="aw" style="${parseInt(parts[1])>parseInt(parts[0])?'color:var(--grn)':''}">${awayTeam}</div>
+</div>`}).reverse().join('');
+
+const wins=FX.filter(f=>f.w).length;
+return `<div class="pg"><div class="card">
+<div class="ct"><span class="i">📋</span>Season Results</div>
+<div class="stg" style="margin-bottom:14px">
+<div class="stb"><div class="v">${FX.length}</div><div class="l">Played</div></div>
+<div class="stb"><div class="v" style="color:var(--grn)">${wins}</div><div class="l">Wins</div></div>
+<div class="stb"><div class="v" style="color:var(--red)">${FX.length-wins}</div><div class="l">Losses</div></div>
+</div>
+${rows}
+</div></div>`}
+
+// ========= UPLOAD =========
+function rUpload(){
+const pls=SQ.map(p=>p.n);
+const opts=pls.map(p=>`<option value="${p}">${p}</option>`).join('');
+return `<div class="pg">
+<div class="card"><div class="ct"><span class="i">📸</span>Upload Scoresheet</div>
+<p style="color:var(--td);font-size:.85rem;margin-bottom:14px">Photo the handwritten scoresheet → AI extracts → you review and save.</p>
+${!D.apiKey?'<div class="sts inf">Set your Claude API key in Settings to enable photo extraction.</div>':''}
+<div class="uz" id="uz"><div class="iu">📷</div><p>Drop a photo here or tap to select</p><div class="hn">JPG, PNG — handwritten scoresheet</div><input type="file" accept="image/*" capture="environment" id="fi" style="display:none"></div>
+<div id="up" class="hidden" style="margin-top:16px"></div>
+<div id="xr" class="hidden" style="margin-top:16px"></div>
+</div>
+<div class="card"><div class="ct"><span class="i">📜</span>Fines & Payouts Reminder</div>
+<div style="font-size:.8rem">
+<div class="fr"><span style="color:var(--grn)">3 × 140+</span><span style="color:var(--grn);font-family:'IBM Plex Mono',monospace;font-weight:600">Wins £3</span></div>
+<div class="fr"><span style="color:var(--gold)">180</span><span style="color:var(--gold);font-family:'IBM Plex Mono',monospace;font-weight:600">Wins £10</span></div>
+<div class="fr"><span style="color:var(--blu)">Highest checkout of night</span><span style="color:var(--blu);font-family:'IBM Plex Mono',monospace;font-weight:600">Wins £1</span></div>
+<div class="fr"><span style="color:var(--ora)">Worst scorer</span><span style="color:var(--ora)">Brings snacks 🍫</span></div>
+<div class="dv"></div>
+<div class="fr"><span>Forgets match shirt</span><span class="fa">£1</span></div>
+<div class="fr"><span>Score under 15</span><span class="fa">10p</span></div>
+<div class="fr"><span>Dart off the board</span><span class="fa">5p</span></div>
+<div class="fr"><span>Forgets darts</span><span class="fa">£10</span></div>
+<div class="fr"><span>Forgets subs/fines money</span><span class="fa">£2</span></div>
+</div></div>
+</div>`}
+
+// ========= SETTINGS =========
+function rSettings(){
+return `<div class="pg">
+<div class="card"><div class="ct"><span class="i">🤖</span>AI Photo Extraction</div>
+<p style="color:var(--td);font-size:.85rem;margin-bottom:10px">Enter your Claude API key for photo-to-stats. Stored locally only.</p>
+<div class="fg"><label>Claude API Key</label><div style="display:flex;gap:6px"><input type="password" id="ak" value="${D.apiKey||''}" placeholder="sk-ant-..."><button class="btn br bs" id="sak">Save</button></div></div>
+</div>
+<div class="card"><div class="ct"><span class="i">ℹ️</span>About</div>
+<p style="color:var(--td);font-size:.85rem">Stats through 15 Dec 2025 from the team spreadsheet. 5 match weeks pending entry (Jan–Mar 2026). League table from wimborneminsterdarts.co.uk.</p>
+<p style="color:var(--tf);font-size:.75rem;margin-top:8px">Upload a photo of each missing week's scoresheet to catch up.</p>
+</div></div>`}
+
+// ========= AI EXTRACTION =========
+async function xPhoto(b64,mime){
+if(!D.apiKey){toast('Set API key first');return null}
+const pls=SQ.map(p=>p.n).join(', ');
+const sys=`Extract darts match data from this handwritten scoresheet for St Ives Warriors. RESPOND ONLY IN JSON:
+{"date":"YYYY-MM-DD","opponent":"team name","venue":"Home|Away","result":"X-Y W|L",
+"players":[{"name":"short name","triples_w":0,"triples_l":0,"triples_gp":0,"doubles_w":0,"doubles_l":0,"doubles_gp":0,"singles_w":0,"singles_l":0,"singles_gp":0,"highest_out":0,"lowest_score":0,"scores_100":0,"scores_140":0,"scores_180":0,"legs_played":0,"legs_won":0}]}
+Known players: ${pls}. Match names to known players.`;
+try{
+const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':D.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:sys,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mime,data:b64}},{type:'text',text:'Extract all data from this darts scoresheet.'}]}]})});
+const data=await r.json();if(data.error)throw new Error(data.error.message);
+const txt=data.content.map(c=>c.text||'').join('');return JSON.parse(txt.replace(/```json|```/g,'').trim());
+}catch(e){toast('Error: '+e.message);return null}}
+
+async function handleFile(f){
+const prev=$('#up'),zone=$('#uz');
+const reader=new FileReader();
+reader.onload=async e=>{
+const url=e.target.result,b64=url.split(',')[1],mime=f.type||'image/jpeg';
+prev.classList.remove('hidden');prev.innerHTML=`<img src="${url}" style="max-width:100%;border-radius:var(--rs)">`;
+zone.innerHTML=`<div class="spn"></div><p style="margin-top:10px;color:var(--gold)">Analysing scoresheet...</p>`;
+const result=await xPhoto(b64,mime);
+zone.innerHTML=`<div class="iu">📷</div><p>Drop a photo or tap to select</p><div class="hn">JPG, PNG</div><input type="file" accept="image/*" capture="environment" id="fi" style="display:none">`;
+bind();
+if(result){$('#xr').classList.remove('hidden');$('#xr').innerHTML=`<div class="sts ok">Extracted! Review the data below.</div><pre style="background:var(--bg3);padding:12px;border-radius:var(--rs);font-size:.75rem;overflow-x:auto;color:var(--td);white-space:pre-wrap">${JSON.stringify(result,null,2)}</pre><p style="color:var(--td);font-size:.8rem;margin-top:10px">Copy this data to update your spreadsheet, or use it to add the week's stats.</p>`}
+};reader.readAsDataURL(f)}
+
+// ========= BIND =========
+function bind(){
+$$('.ck[data-pl]').forEach(e=>e.onclick=()=>{sp=e.dataset.pl;rPg()});
+const bk=$('#bk');if(bk)bk.onclick=()=>{sp=null;rPg()};
+$$('.sub-t button').forEach(b=>b.onclick=()=>{stab=b.dataset.st;rPg()});
+const zone=$('#uz'),fi=$('#fi');
+if(zone&&fi){zone.onclick=()=>fi.click();zone.ondragover=e=>{e.preventDefault();zone.classList.add('dg')};zone.ondragleave=()=>zone.classList.remove('dg');zone.ondrop=e=>{e.preventDefault();zone.classList.remove('dg');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0])};fi.onchange=()=>{if(fi.files.length)handleFile(fi.files[0])}}
+const sak=$('#sak');if(sak)sak.onclick=()=>{D.apiKey=$('#ak').value.trim();sv(D);toast('API key saved')}}
+
+rNav();rPg();
+</script>
+</body>
+</html>
