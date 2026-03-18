@@ -1,2 +1,2 @@
 # stiveswarriors
-St Ives Warriors
+St Ives Warriors Team
