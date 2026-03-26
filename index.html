@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>St Ives Warriors — Darts Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#0a0c10;--bg2:#12151c;--bg3:#1a1e28;--bg4:#0e1018;--bd:rgba(255,255,255,.06);--bdf:rgba(212,175,55,.5);--t:#e8e6e3;--td:#7a8194;--tf:#3d4455;--gold:#d4af37;--goldb:#f0d060;--red:#d94f4f;--grn:#4ade80;--blu:#60a5fa;--ora:#f59e0b;--wr:#c41e3a;--wrd:#8b1528;--r:10px;--rs:6px}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -30,13 +31,26 @@ td{padding:8px;border-bottom:1px solid var(--bd);white-space:nowrap}th.c,td.c{te
 .pn{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
 .sub-t{display:flex;gap:16px;margin-bottom:14px;border-bottom:1px solid var(--tf);padding-bottom:8px;overflow-x:auto}.sub-t button{background:0;border:0;font-family:'IBM Plex Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);cursor:pointer;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}.sub-t button:hover{color:var(--t)}.sub-t button.act{color:var(--gold);border-bottom-color:var(--gold)}
 .btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border:0;border-radius:var(--rs);font-family:'Oswald',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.br{background:var(--wr);color:#fff}.br:hover{background:#d6223f;transform:translateY(-1px)}.br:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.bg{background:var(--gold);color:#000}.bg:hover{background:var(--goldb);transform:translateY(-1px)}.bg:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .bo{background:0;border:1px solid var(--tf);color:var(--t)}.bo:hover{border-color:var(--td);background:var(--bg3)}.bs{padding:5px 12px;font-size:.7rem}
+.fg{margin-bottom:14px}.fg label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--bg4);border:1px solid var(--tf);border-radius:var(--rs);padding:8px 12px;color:var(--t);font-family:'Source Serif 4',serif;font-size:.85rem}.fg input:focus,.fg select:focus,.fg textarea:focus{outline:0;border-color:var(--bdf)}
+select option{background:var(--bg2)}
 .fr{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.85rem}.fr:last-child{border-bottom:0}.fa{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ora)}
-.dv{height:1px;background:var(--bd);margin:14px 0}.fb{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.dv{height:1px;background:var(--bd);margin:14px 0}
 .pg{animation:fu .3s ease}@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .ck{cursor:pointer;transition:color .2s}.ck:hover{color:var(--gold)}
 .tt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg2);border:1px solid var(--gold);color:var(--t);padding:10px 22px;border-radius:var(--r);font-size:.8rem;z-index:100;transition:transform .4s cubic-bezier(.16,1,.3,1);pointer-events:none}.tt.sh{transform:translateX(-50%) translateY(0)}
 .bar{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-top:4px}.bar-f{height:100%;border-radius:3px;background:var(--grn)}
+.sts{padding:10px 14px;border-radius:var(--rs);font-size:.8rem;margin-bottom:14px;display:flex;align-items:center;gap:6px}.sts.ok{background:rgba(74,222,128,.08);border:1px solid var(--grn);color:var(--grn)}.sts.err{background:rgba(217,79,79,.08);border:1px solid var(--red);color:var(--red)}.sts.inf{background:rgba(96,165,250,.08);border:1px solid var(--blu);color:var(--blu)}
+.spn{display:inline-block;width:18px;height:18px;border:2px solid var(--tf);border-top-color:var(--gold);border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.player-row{display:grid;grid-template-columns:120px repeat(9,1fr) 60px 60px 50px 50px;gap:4px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.75rem}
+.player-row.hdr-row{font-family:'IBM Plex Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);border-bottom:2px solid var(--tf)}
+.player-row input{width:100%;background:var(--bg4);border:1px solid var(--tf);border-radius:4px;padding:4px 6px;color:var(--t);font-family:'IBM Plex Mono',monospace;font-size:.75rem;text-align:center}
+.player-row input:focus{outline:0;border-color:var(--bdf)}
+.player-row .pname{font-weight:600;font-size:.8rem}
+@media(max-width:768px){.player-row{grid-template-columns:90px repeat(9,1fr) 50px 50px 40px 40px;font-size:.65rem}.player-row input{padding:3px 2px;font-size:.65rem}}
 @media(max-width:600px){.app{padding:6px}.card{padding:12px}table{font-size:.7rem}th,td{padding:5px 6px}.stg{grid-template-columns:repeat(2,1fr)}.fc{gap:6px;padding:10px}}
 </style>
 </head>
@@ -46,148 +60,283 @@ td{padding:8px;border-bottom:1px solid var(--bd);white-space:nowrap}th.c,td.c{te
   <div class="hdr-badge"><span>⚔️ Wimborne & District · C Section</span></div>
   <h1>St Ives Warriors</h1>
   <div class="sub">Season 2025/26</div>
-  <div class="pb">Currently <strong>5th</strong> · P17 · <span style="color:var(--grn)">5W</span> <span style="color:var(--red)">12L</span> · 91 legs for</div>
+  <div class="pb" id="hdrSummary">Loading...</div>
 </div>
 <nav class="nav" id="nav"></nav>
 <div id="pg"></div>
 </div>
 <div class="tt" id="tt"></div>
+
 <script>
-const TABS=['league','squad','results','kitty'];
-const TNAME={league:'League',squad:'Squad',results:'Results',kitty:'Kitty'};
-let pg='league',sp=null,st='overview';
+// ============================================================
+// SUPABASE CONFIG — Replace these with your project values
+// ============================================================
+const SUPABASE_URL = 'https://zsoqttxqancyrjpevssh.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_hjmuGRBZw4eK35464rJQcg__fa3B4wi';
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ============================================================
+// STATE
+// ============================================================
+let players=[], fixtures=[], league=[], kittyLog=[];
+let pg='league', sp=null, st='overview';
+const TABS=['league','squad','results','add','kitty'];
+const TNAME={league:'League',squad:'Squad',results:'Results',add:'Add Week',kitty:'Kitty'};
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const toast=m=>{const t=$('#tt');t.textContent=m;t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),2500)};
 
-const LT=[
-{r:1,t:'Gypsy Drillers',p:17,w:14,l:3,f:118,pc:.824,fm:['L','W','W','W','W']},
-{r:2,t:'Green Man A',p:16,w:12,l:4,f:103,pc:.75,fm:['W','W','W','W','L']},
-{r:3,t:'Coach & Horses',p:17,w:12,l:5,f:100,pc:.706,fm:['W','W','W','W','L']},
-{r:4,t:'One Over One In',p:17,w:10,l:7,f:96,pc:.588,fm:['L','W','W','W','W']},
-{r:5,t:'St Ives Warriors',p:17,w:5,l:12,f:91,pc:.294,fm:['L','L','L','L','L']},
-{r:6,t:'Horns C',p:16,w:9,l:7,f:87,pc:.562,fm:['L','W','W','W','W']},
-{r:7,t:'CSSC B',p:17,w:7,l:10,f:86,pc:.412,fm:['L','L','W','L','L']},
-{r:8,t:'Owls Nest B',p:17,w:5,l:12,f:85,pc:.294,fm:['W','L','L','L','L']},
-{r:9,t:'Dorset Soldier A',p:17,w:8,l:9,f:81,pc:.471,fm:['W','L','L','L','W']},
-{r:10,t:'Wimborne RBL A',p:17,w:2,l:15,f:77,pc:.118,fm:['L','W','L','L','W']}];
+// ============================================================
+// DATA LOADING
+// ============================================================
+async function loadAll(){
+  const [pRes,fRes,lRes,kRes] = await Promise.all([
+    sb.from('players').select('*').order('legs_won',{ascending:false}),
+    sb.from('fixtures').select('*').order('id',{ascending:true}),
+    sb.from('league_table').select('*').order('rank',{ascending:true}),
+    sb.from('kitty').select('*').order('id',{ascending:true})
+  ]);
+  players=pRes.data||[];
+  fixtures=fRes.data||[];
+  league=lRes.data||[];
+  kittyLog=kRes.data||[];
+  updateHeader();
+  R();
+}
 
-// FULL SEASON STATS — 19 weeks (12 spreadsheet + 7 handwritten)
-const SQ=[
-{n:'Adi',full:'Adi Butterworth',tw:1,tl:9,tg:10,dw:14,dl:8,dg:22,sw:10,sl:11,sg:21,ho:155,lo:7,s1:32,s14:7,s18:0,lp:85,lw:43},
-{n:'Paul G',full:'Paul Greenwood',tw:5,tl:6,tg:11,dw:2,dl:14,dg:16,sw:18,sl:6,sg:24,ho:80,lo:null,s1:30,s14:7,s18:0,lp:83,lw:43},
-{n:'Dave H',full:'Dave Hobbs',tw:8,tl:5,tg:13,dw:8,dl:6,dg:14,sw:10,sl:10,sg:20,ho:94,lo:5,s1:20,s14:2,s18:0,lp:79,lw:43},
-{n:'Callum',full:'Callum Moran',tw:6,tl:6,tg:11,dw:10,dl:13,dg:23,sw:9,sl:9,sg:18,ho:78,lo:null,s1:23,s14:6,s18:0,lp:83,lw:40},
-{n:'Paul A',full:'Paul Andrews',tw:4,tl:2,tg:5,dw:8,dl:8,dg:16,sw:10,sl:7,sg:17,ho:null,lo:null,s1:19,s14:4,s18:0,lp:62,lw:36},
-{n:'Simon',full:'Simon Riches',tw:6,tl:5,tg:11,dw:6,dl:7,dg:13,sw:9,sl:8,sg:17,ho:40,lo:null,s1:12,s14:0,s18:0,lp:69,lw:35},
-{n:'Dan',full:'Dan Hope',tw:7,tl:4,tg:11,dw:8,dl:7,dg:13,sw:6,sl:10,sg:16,ho:83,lo:null,s1:18,s14:5,s18:0,lp:64,lw:33},
-{n:'Steve S',full:'Steve Stewart',tw:4,tl:3,tg:7,dw:8,dl:6,dg:14,sw:11,sl:9,sg:20,ho:90,lo:7,s1:21,s14:1,s18:0,lp:63,lw:37},
-{n:'Ryan B',full:'Ryan Butterworth',tw:6,tl:5,tg:11,dw:7,dl:12,dg:19,sw:0,sl:3,sg:3,ho:41,lo:9,s1:11,s14:3,s18:0,lp:55,lw:21},
-{n:'Dave S',full:'David Slater',tw:0,tl:1,tg:1,dw:0,dl:1,dg:1,sw:0,sl:2,sg:2,ho:4,lo:null,s1:1,s14:0,s18:0,lp:6,lw:1}];
+function updateHeader(){
+  const w=league.find(t=>t.team==='St Ives Warriors');
+  if(w) $('#hdrSummary').innerHTML=`Currently <strong>${w.rank}${nth(w.rank)}</strong> · P${w.played} · <span style="color:var(--grn)">${w.won}W</span> <span style="color:var(--red)">${w.lost}L</span> · ${w.legs_for} legs for`;
+}
+function nth(n){const s=['th','st','nd','rd'];const v=n%100;return s[(v-20)%10]||s[v]||s[0]}
 
-const FX=[
-{d:'01 Sep',opp:'CSSC B',v:'H',sc:'5-6',w:false},
-{d:'08 Sep',opp:'Green Man A',v:'H',sc:'5-6',w:false},
-{d:'22 Sep',opp:'Gypsy Drillers',v:'A',sc:'8-3',w:false},
-{d:'06 Oct',opp:'Crusaders',v:'H',sc:'7-8',w:false,cup:true},
-{d:'13 Oct',opp:'Wimborne RBL A',v:'A',sc:'3-8',w:true},
-{d:'20 Oct',opp:'Coach & Horses',v:'H',sc:'7-4',w:true},
-{d:'10 Nov',opp:'Horns C',v:'A',sc:'4-7',w:true},
-{d:'17 Nov',opp:'One Over One In',v:'H',sc:'5-6',w:false},
-{d:'24 Nov',opp:'Owls Nest B',v:'H',sc:'6-5',w:true},
-{d:'01 Dec',opp:'Dorset Soldier A',v:'A',sc:'6-5',w:false},
-{d:'08 Dec',opp:'CSSC B',v:'A',sc:'4-7',w:true},
-{d:'05 Jan',opp:'Green Man A',v:'A',sc:'8-3',w:false},
-{d:'12 Jan',opp:'Gypsy Drillers',v:'H',sc:'5-6',w:false},
-{d:'02 Feb',opp:'Owls Nest B',v:'A',sc:'6-5',w:false},
-{d:'09 Feb',opp:'Wimborne RBL A',v:'H',sc:'5-6',w:false},
-{d:'23 Feb',opp:'Coach & Horses',v:'A',sc:'6-5',w:false},
-{d:'02 Mar',opp:'Horns C',v:'H',sc:'5-6',w:false},
-{d:'16 Mar',opp:'One Over One In',v:'A',sc:'6-5',w:false}];
-
-const NXT={d:'23 Mar 2026',opp:'Dorset Soldier A',v:'H'};
-
+// ============================================================
+// NAV & ROUTING
+// ============================================================
 function rNav(){$('#nav').innerHTML=TABS.map(t=>`<button class="${pg===t?'active':''}" data-p="${t}">${TNAME[t]}</button>`).join('');$$('#nav button').forEach(b=>b.onclick=()=>{pg=b.dataset.p;sp=null;st='overview';rNav();R()})}
-function R(){const c=$('#pg');switch(pg){case'league':c.innerHTML=rL();break;case'squad':c.innerHTML=sp?rP():rS();break;case'results':c.innerHTML=rR();break;case'kitty':c.innerHTML=rK();break}bind()}
+function R(){const c=$('#pg');switch(pg){case'league':c.innerHTML=rL();break;case'squad':c.innerHTML=sp?rP():rS();break;case'results':c.innerHTML=rR();break;case'add':c.innerHTML=rA();break;case'kitty':c.innerHTML=rK();break}bindAll()}
 
+// ============================================================
+// LEAGUE TABLE
+// ============================================================
 function rL(){
-const rows=LT.map((t,i)=>{const w=t.t==='St Ives Warriors';return`<tr class="${w?'hw':''}"><td class="pc ${i<3?'p'+(i+1):''}">${t.r}</td><td><span class="tn ${w?'hl':''}">${t.t}</span></td><td class="c">${t.p}</td><td class="c sw">${t.w}</td><td class="c sl">${t.l}</td><td class="c">${t.f}</td><td class="c">${(t.pc*100).toFixed(0)}%</td><td class="c">${t.fm.map(f=>`<span class="fd f${f.toLowerCase()}">${f}</span>`).join('')}</td></tr>`}).join('');
+if(!league.length)return'<div class="pg"><div class="card"><p style="color:var(--td)">Loading league data...</p></div></div>';
+const rows=league.map((t,i)=>{const w=t.team==='St Ives Warriors';const fm=(t.form||'').split(',').map(f=>`<span class="fd f${f.toLowerCase()}">${f}</span>`).join('');
+return`<tr class="${w?'hw':''}"><td class="pc ${i<3?'p'+(i+1):''}">${t.rank}</td><td><span class="tn ${w?'hl':''}">${t.team}</span></td><td class="c">${t.played}</td><td class="c sw">${t.won}</td><td class="c sl">${t.lost}</td><td class="c">${t.legs_for}</td><td class="c">${(t.win_pct*100).toFixed(0)}%</td><td class="c">${fm}</td></tr>`}).join('');
 return`<div class="pg">
-<div class="nm"><div class="lb">Next Match</div><div class="tm">Warriors vs ${NXT.opp}</div><div class="dt">${NXT.d} · 8:00 PM · ${NXT.v==='H'?'Home':'Away'}</div></div>
 <div class="card"><div class="ct"><span class="i">🏆</span>C Section Standings</div><div class="tw"><table><thead><tr><th>#</th><th>Team</th><th class="c">P</th><th class="c">W</th><th class="c">L</th><th class="c">For</th><th class="c">Win%</th><th class="c">Form</th></tr></thead><tbody>${rows}</tbody></table></div></div></div>`}
 
+// ============================================================
+// SQUAD
+// ============================================================
 function rS(){
-const sorted=[...SQ].sort((a,b)=>b.lw-a.lw);
-const tLW=SQ.reduce((s,p)=>s+p.lw,0),tLP=SQ.reduce((s,p)=>s+p.lp,0);
+const sorted=[...players].sort((a,b)=>b.legs_won-a.legs_won);
+const tLW=players.reduce((s,p)=>s+p.legs_won,0),tLP=players.reduce((s,p)=>s+p.legs_played,0);
 const tabs=`<div class="sub-t">${['overview','triples','doubles','singles','scoring'].map(t=>`<button class="${st===t?'act':''}" data-st="${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}</div>`;
 let tbl='';
 if(st==='overview'){
-tbl=sorted.map((p,i)=>{const wp=p.lp?(p.lw/p.lp*100).toFixed(0):0;return`<tr><td class="pc ${i<3?'p'+(i+1):''}">${i+1}</td><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c">${p.lp}</td><td class="c sg">${p.lw}</td><td class="c">${wp}%</td><td class="c">${p.ho||'—'}</td></tr>`}).join('');
+tbl=sorted.map((p,i)=>{const wp=p.legs_played?(p.legs_won/p.legs_played*100).toFixed(0):0;return`<tr><td class="pc ${i<3?'p'+(i+1):''}">${i+1}</td><td><span class="ck" data-pl="${p.name}">${p.full_name}</span></td><td class="c">${p.legs_played}</td><td class="c sg">${p.legs_won}</td><td class="c">${wp}%</td><td class="c">${p.high_out||'—'}</td></tr>`}).join('');
 tbl=`<table><thead><tr><th>#</th><th>Player</th><th class="c">Legs P</th><th class="c">Legs W</th><th class="c">Win%</th><th class="c">Best CO</th></tr></thead><tbody>${tbl}</tbody></table>`;
 }else if(st==='triples'){
-const s=[...SQ].filter(p=>p.tg).sort((a,b)=>(b.tg?b.tw/b.tg:0)-(a.tg?a.tw/a.tg:0));
-tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c sw">${p.tw}</td><td class="c sl">${p.tl}</td><td class="c">${p.tg}</td><td class="c">${(p.tw/p.tg*100).toFixed(0)}%</td></tr>`).join('')}</tbody></table>`;
+const s=[...players].filter(p=>p.tri_gp).sort((a,b)=>(b.tri_w/b.tri_gp)-(a.tri_w/a.tri_gp));
+tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.name}">${p.full_name}</span></td><td class="c sw">${p.tri_w}</td><td class="c sl">${p.tri_l}</td><td class="c">${p.tri_gp}</td><td class="c">${(p.tri_w/p.tri_gp*100).toFixed(0)}%</td></tr>`).join('')}</tbody></table>`;
 }else if(st==='doubles'){
-const s=[...SQ].filter(p=>p.dg).sort((a,b)=>(b.dg?b.dw/b.dg:0)-(a.dg?a.dw/a.dg:0));
-tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c sw">${p.dw}</td><td class="c sl">${p.dl}</td><td class="c">${p.dg}</td><td class="c">${(p.dw/p.dg*100).toFixed(0)}%</td></tr>`).join('')}</tbody></table>`;
+const s=[...players].filter(p=>p.dbl_gp).sort((a,b)=>(b.dbl_w/b.dbl_gp)-(a.dbl_w/a.dbl_gp));
+tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.name}">${p.full_name}</span></td><td class="c sw">${p.dbl_w}</td><td class="c sl">${p.dbl_l}</td><td class="c">${p.dbl_gp}</td><td class="c">${(p.dbl_w/p.dbl_gp*100).toFixed(0)}%</td></tr>`).join('')}</tbody></table>`;
 }else if(st==='singles'){
-const s=[...SQ].filter(p=>p.sg).sort((a,b)=>b.sw-a.sw);
-tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c sw">${p.sw}</td><td class="c sl">${p.sl}</td><td class="c">${p.sg}</td><td class="c">${(p.sw/p.sg*100).toFixed(0)}%</td></tr>`).join('')}</tbody></table>`;
+const s=[...players].filter(p=>p.sin_gp).sort((a,b)=>b.sin_w-a.sin_w);
+tbl=`<table><thead><tr><th>Player</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.name}">${p.full_name}</span></td><td class="c sw">${p.sin_w}</td><td class="c sl">${p.sin_l}</td><td class="c">${p.sin_gp}</td><td class="c">${(p.sin_w/p.sin_gp*100).toFixed(0)}%</td></tr>`).join('')}</tbody></table>`;
 }else{
-const s=[...SQ].sort((a,b)=>b.s1-a.s1);
-tbl=`<table><thead><tr><th>Player</th><th class="c">100+</th><th class="c">140+</th><th class="c">180</th><th class="c">Best CO</th><th class="c">Worst</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.n}">${p.full}</span></td><td class="c">${p.s1}</td><td class="c" style="color:var(--ora)">${p.s14}</td><td class="c" style="color:var(--red)">${p.s18||'—'}</td><td class="c">${p.ho||'—'}</td><td class="c" style="color:var(--tf)">${p.lo||'—'}</td></tr>`).join('')}</tbody></table>`}
+const s=[...players].sort((a,b)=>b.scores_100-a.scores_100);
+tbl=`<table><thead><tr><th>Player</th><th class="c">100+</th><th class="c">140+</th><th class="c">180</th><th class="c">Best CO</th><th class="c">Worst</th></tr></thead><tbody>${s.map(p=>`<tr><td><span class="ck" data-pl="${p.name}">${p.full_name}</span></td><td class="c">${p.scores_100}</td><td class="c" style="color:var(--ora)">${p.scores_140}</td><td class="c" style="color:var(--red)">${p.scores_180||'—'}</td><td class="c">${p.high_out||'—'}</td><td class="c" style="color:var(--tf)">${p.low_score||'—'}</td></tr>`).join('')}</tbody></table>`}
 return`<div class="pg"><div class="card"><div class="ct"><span class="i">⚔️</span>Warriors Squad — Full Season</div>
-<div class="stg"><div class="stb"><div class="v">${SQ.length}</div><div class="l">Players</div></div><div class="stb"><div class="v">${tLW}</div><div class="l">Legs Won</div></div><div class="stb"><div class="v">${tLP}</div><div class="l">Legs Played</div></div><div class="stb"><div class="v">${(tLW/tLP*100).toFixed(0)}%</div><div class="l">Win Rate</div></div></div>
-${tabs}<div class="tw">${tbl}</div>
-<p style="font-size:.7rem;color:var(--tf);margin-top:10px">Full season: 19 match weeks (Sep 2025 – Mar 2026)</p>
-</div></div>`}
+<div class="stg"><div class="stb"><div class="v">${players.length}</div><div class="l">Players</div></div><div class="stb"><div class="v">${tLW}</div><div class="l">Legs Won</div></div><div class="stb"><div class="v">${tLP}</div><div class="l">Legs Played</div></div><div class="stb"><div class="v">${tLP?(tLW/tLP*100).toFixed(0):0}%</div><div class="l">Win Rate</div></div></div>
+${tabs}<div class="tw">${tbl}</div></div></div>`}
 
+// ============================================================
+// PLAYER PROFILE
+// ============================================================
 function rP(){
-const p=SQ.find(x=>x.n===sp);if(!p)return'<div class="pg"><p>Not found</p></div>';
-const init=p.full.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-const all=[...SQ].sort((a,b)=>b.lw-a.lw);const rank=all.findIndex(x=>x.n===p.n)+1;
-const tW=p.tw+p.dw+p.sw,tG=p.tg+p.dg+p.sg,wp=p.lp?(p.lw/p.lp*100).toFixed(0):0;
+const p=players.find(x=>x.name===sp);if(!p)return'<div class="pg"><p>Not found</p></div>';
+const init=p.full_name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+const all=[...players].sort((a,b)=>b.legs_won-a.legs_won);const rank=all.findIndex(x=>x.name===p.name)+1;
+const tW=p.tri_w+p.dbl_w+p.sin_w,tG=p.tri_gp+p.dbl_gp+p.sin_gp,wp=p.legs_played?(p.legs_won/p.legs_played*100).toFixed(0):0;
 return`<div class="pg">
 <button class="btn bo bs" id="bk" style="margin-bottom:12px">← Squad</button>
-<div class="card"><div class="ph"><div class="av">${init}</div><div><div class="pn">${p.full}</div><div style="color:var(--td);font-size:.8rem">Squad Rank #${rank} · St Ives Warriors</div></div></div>
+<div class="card"><div class="ph"><div class="av">${init}</div><div><div class="pn">${p.full_name}</div><div style="color:var(--td);font-size:.8rem">Squad Rank #${rank} · St Ives Warriors</div></div></div>
 <div class="stg">
-<div class="stb"><div class="v">${p.lw}</div><div class="l">Legs Won</div></div>
+<div class="stb"><div class="v">${p.legs_won}</div><div class="l">Legs Won</div></div>
 <div class="stb"><div class="v">${wp}%</div><div class="l">Win Rate</div></div>
-<div class="stb"><div class="v">${p.ho||'—'}</div><div class="l">Best CO</div></div>
-<div class="stb"><div class="v">${p.s1}</div><div class="l">100+</div></div>
-<div class="stb"><div class="v">${p.s14}</div><div class="l">140+</div></div>
-<div class="stb"><div class="v">${p.lp}</div><div class="l">Legs Played</div></div></div>
+<div class="stb"><div class="v">${p.high_out||'—'}</div><div class="l">Best CO</div></div>
+<div class="stb"><div class="v">${p.scores_100}</div><div class="l">100+</div></div>
+<div class="stb"><div class="v">${p.scores_140}</div><div class="l">140+</div></div>
+<div class="stb"><div class="v">${p.legs_played}</div><div class="l">Legs Played</div></div></div>
 <div class="ct" style="margin-top:8px"><span class="i">📊</span>Format Breakdown</div>
 <div class="tw"><table><thead><tr><th>Format</th><th class="c">W</th><th class="c">L</th><th class="c">GP</th><th class="c">Win%</th><th></th></tr></thead><tbody>
-<tr><td>Triples</td><td class="c sw">${p.tw}</td><td class="c sl">${p.tl}</td><td class="c">${p.tg}</td><td class="c">${p.tg?(p.tw/p.tg*100).toFixed(0)+'%':'—'}</td><td><div class="bar" style="width:80px"><div class="bar-f" style="width:${p.tg?(p.tw/p.tg*100):0}%"></div></div></td></tr>
-<tr><td>Doubles</td><td class="c sw">${p.dw}</td><td class="c sl">${p.dl}</td><td class="c">${p.dg}</td><td class="c">${p.dg?(p.dw/p.dg*100).toFixed(0)+'%':'—'}</td><td><div class="bar" style="width:80px"><div class="bar-f" style="width:${p.dg?(p.dw/p.dg*100):0}%"></div></div></td></tr>
-<tr><td>Singles</td><td class="c sw">${p.sw}</td><td class="c sl">${p.sl}</td><td class="c">${p.sg}</td><td class="c">${p.sg?(p.sw/p.sg*100).toFixed(0)+'%':'—'}</td><td><div class="bar" style="width:80px"><div class="bar-f" style="width:${p.sg?(p.sw/p.sg*100):0}%"></div></div></td></tr>
+<tr><td>Triples</td><td class="c sw">${p.tri_w}</td><td class="c sl">${p.tri_l}</td><td class="c">${p.tri_gp}</td><td class="c">${p.tri_gp?(p.tri_w/p.tri_gp*100).toFixed(0)+'%':'—'}</td><td><div class="bar" style="width:80px"><div class="bar-f" style="width:${p.tri_gp?(p.tri_w/p.tri_gp*100):0}%"></div></div></td></tr>
+<tr><td>Doubles</td><td class="c sw">${p.dbl_w}</td><td class="c sl">${p.dbl_l}</td><td class="c">${p.dbl_gp}</td><td class="c">${p.dbl_gp?(p.dbl_w/p.dbl_gp*100).toFixed(0)+'%':'—'}</td><td><div class="bar" style="width:80px"><div class="bar-f" style="width:${p.dbl_gp?(p.dbl_w/p.dbl_gp*100):0}%"></div></div></td></tr>
+<tr><td>Singles</td><td class="c sw">${p.sin_w}</td><td class="c sl">${p.sin_l}</td><td class="c">${p.sin_gp}</td><td class="c">${p.sin_gp?(p.sin_w/p.sin_gp*100).toFixed(0)+'%':'—'}</td><td><div class="bar" style="width:80px"><div class="bar-f" style="width:${p.sin_gp?(p.sin_w/p.sin_gp*100):0}%"></div></div></td></tr>
 <tr style="border-top:2px solid var(--tf)"><td style="font-weight:700">Total</td><td class="c sw" style="font-weight:700">${tW}</td><td class="c sl" style="font-weight:700">${tG-tW}</td><td class="c" style="font-weight:700">${tG}</td><td class="c sg">${tG?(tW/tG*100).toFixed(0)+'%':'—'}</td><td></td></tr>
 </tbody></table></div></div></div>`}
 
+// ============================================================
+// RESULTS
+// ============================================================
 function rR(){
-const wins=FX.filter(f=>f.w).length;
-const rows=FX.slice().reverse().map(f=>{
-const hm=f.v==='H'?'St Ives Warriors':f.opp;const aw=f.v==='A'?'St Ives Warriors':f.opp;
-const pts=f.sc.split('-');const hw=parseInt(pts[0])>parseInt(pts[1]);
-return`<div class="fc wf"><div class="hm" style="${hw?'color:var(--grn)':''}">${hm}</div><div><div class="sc">${f.sc}</div><div class="dl">${f.d}${f.cup?' · Cup':''}</div></div><div class="aw" style="${!hw?'color:var(--grn)':''}">${aw}</div></div>`}).join('');
+const wins=fixtures.filter(f=>f.is_win).length;
+const rows=fixtures.slice().reverse().map(f=>{
+const hm=f.venue==='H'?'St Ives Warriors':f.opponent;const aw=f.venue==='A'?'St Ives Warriors':f.opponent;
+const pts=f.score.split('-');const hw=parseInt(pts[0])>parseInt(pts[1]);
+return`<div class="fc wf"><div class="hm" style="${hw?'color:var(--grn)':''}">${hm}</div><div><div class="sc">${f.score}</div><div class="dl">${f.match_date}${f.is_cup?' · Cup':''}</div></div><div class="aw" style="${!hw?'color:var(--grn)':''}">${aw}</div></div>`}).join('');
 return`<div class="pg"><div class="card"><div class="ct"><span class="i">📋</span>All Results</div>
-<div class="stg" style="margin-bottom:14px"><div class="stb"><div class="v">${FX.length}</div><div class="l">Played</div></div><div class="stb"><div class="v" style="color:var(--grn)">${wins}</div><div class="l">Wins</div></div><div class="stb"><div class="v" style="color:var(--red)">${FX.length-wins}</div><div class="l">Losses</div></div></div>
-${rows}</div>
-<div class="card"><div class="ct"><span class="i">📅</span>Next Up</div>
-<div class="fc wf"><div class="hm">St Ives Warriors</div><div><div class="sc">VS</div><div class="dl">${NXT.d}</div></div><div class="aw">${NXT.opp}</div></div></div></div>`}
+<div class="stg" style="margin-bottom:14px"><div class="stb"><div class="v">${fixtures.length}</div><div class="l">Played</div></div><div class="stb"><div class="v" style="color:var(--grn)">${wins}</div><div class="l">Wins</div></div><div class="stb"><div class="v" style="color:var(--red)">${fixtures.length-wins}</div><div class="l">Losses</div></div></div>
+${rows}</div></div>`}
 
+// ============================================================
+// ADD WEEK — Manual entry form
+// ============================================================
+function rA(){
+const pOpts=players.map(p=>`<option value="${p.name}">${p.full_name}</option>`).join('');
+const pNames=players.map(p=>p.name);
+
+// Build player stat rows
+const pRows=players.map(p=>`
+<div class="player-row" data-pn="${p.name}">
+<div class="pname">${p.name}</div>
+<input type="number" min="0" class="pw-tw" value="0" placeholder="0">
+<input type="number" min="0" class="pw-tl" value="0" placeholder="0">
+<input type="number" min="0" class="pw-tg" value="0" placeholder="0">
+<input type="number" min="0" class="pw-dw" value="0" placeholder="0">
+<input type="number" min="0" class="pw-dl" value="0" placeholder="0">
+<input type="number" min="0" class="pw-dg" value="0" placeholder="0">
+<input type="number" min="0" class="pw-sw" value="0" placeholder="0">
+<input type="number" min="0" class="pw-sl" value="0" placeholder="0">
+<input type="number" min="0" class="pw-sg" value="0" placeholder="0">
+<input type="number" min="0" class="pw-ho" value="" placeholder="—">
+<input type="number" min="0" class="pw-lo" value="" placeholder="—">
+<input type="number" min="0" class="pw-100" value="0" placeholder="0">
+<input type="number" min="0" class="pw-140" value="0" placeholder="0">
+</div>`).join('');
+
+return`<div class="pg">
+<div class="card">
+<div class="ct"><span class="i">➕</span>Add Match Week</div>
+<p style="color:var(--td);font-size:.85rem;margin-bottom:14px">Enter the match result and each player's stats for this week. Stats will be added to their season totals.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
+<div class="fg"><label>Date</label><input type="text" id="aw-date" placeholder="e.g. 23 Mar" value=""></div>
+<div class="fg"><label>Opponent</label><input type="text" id="aw-opp" placeholder="e.g. Dorset Soldier A"></div>
+<div class="fg"><label>Venue</label><select id="aw-venue"><option value="H">Home</option><option value="A">Away</option></select></div>
+<div class="fg"><label>Score (H-A)</label><input type="text" id="aw-score" placeholder="e.g. 7-4"></div>
+</div>
+<div class="fg"><label>Warriors Win?</label><select id="aw-win"><option value="true">Yes — Win</option><option value="false">No — Loss</option></select></div>
+</div>
+
+<div class="card">
+<div class="ct"><span class="i">📊</span>Player Stats This Week</div>
+<p style="color:var(--td);font-size:.8rem;margin-bottom:10px">Enter W/L/GP for each format, plus scoring. Leave players who didn't play as all zeros.</p>
+<div style="overflow-x:auto;margin:0 -18px;padding:0 18px">
+<div class="player-row hdr-row">
+<div></div>
+<div style="text-align:center;grid-column:span 3;border-bottom:1px solid var(--tf);padding-bottom:2px">Triples</div>
+<div style="text-align:center;grid-column:span 3;border-bottom:1px solid var(--tf);padding-bottom:2px">Doubles</div>
+<div style="text-align:center;grid-column:span 3;border-bottom:1px solid var(--tf);padding-bottom:2px">Singles</div>
+<div style="text-align:center">H.Out</div>
+<div style="text-align:center">L.Scr</div>
+<div style="text-align:center">100+</div>
+<div style="text-align:center">140+</div>
+</div>
+<div class="player-row hdr-row">
+<div></div>
+<div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">GP</div>
+<div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">GP</div>
+<div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">GP</div>
+<div></div><div></div><div></div><div></div>
+</div>
+${pRows}
+</div>
+</div>
+
+<button class="btn bg" id="saveWeek" style="width:100%;justify-content:center;padding:14px">💾 Save Week & Update Stats</button>
+</div>`}
+
+async function saveWeek(){
+  const date=$('#aw-date').value.trim();
+  const opp=$('#aw-opp').value.trim();
+  const venue=$('#aw-venue').value;
+  const score=$('#aw-score').value.trim();
+  const isWin=$('#aw-win').value==='true';
+  
+  if(!date||!opp||!score){toast('Fill in date, opponent and score');return}
+
+  // Save fixture
+  const{error:fErr}=await sb.from('fixtures').insert({match_date:date,opponent:opp,venue,score,is_win:isWin,is_cup:false});
+  if(fErr){toast('Error saving fixture: '+fErr.message);return}
+
+  // Update each player's cumulative stats
+  const rows=$$('.player-row[data-pn]');
+  for(const row of rows){
+    const pn=row.dataset.pn;
+    const v=sel=>parseInt(row.querySelector(sel)?.value)||0;
+    const tw=v('.pw-tw'),tl=v('.pw-tl'),tg=v('.pw-tg');
+    const dw=v('.pw-dw'),dl=v('.pw-dl'),dg=v('.pw-dg');
+    const sw=v('.pw-sw'),sl=v('.pw-sl'),sg=v('.pw-sg');
+    const ho=parseInt(row.querySelector('.pw-ho')?.value)||null;
+    const lo=parseInt(row.querySelector('.pw-lo')?.value)||null;
+    const s100=v('.pw-100'),s140=v('.pw-140');
+    
+    // Skip players with no activity
+    const totalGP=tg+dg+sg;
+    if(totalGP===0 && s100===0 && s140===0) continue;
+    
+    const legsP=tg+dg+sg; // legs played = total games played across formats this week
+    // For legs won: each W in triples/doubles/singles counts as legs contributed
+    // But the spreadsheet tracks legs_played and legs_won differently... 
+    // We'll approximate: legs_won = sum of all W across formats
+    const legsW=tw+dw+sw;
+
+    const p=players.find(x=>x.name===pn);
+    if(!p)continue;
+
+    const updates={
+      tri_w: p.tri_w+tw, tri_l: p.tri_l+tl, tri_gp: p.tri_gp+tg,
+      dbl_w: p.dbl_w+dw, dbl_l: p.dbl_l+dl, dbl_gp: p.dbl_gp+dg,
+      sin_w: p.sin_w+sw, sin_l: p.sin_l+sl, sin_gp: p.sin_gp+sg,
+      scores_100: p.scores_100+s100, scores_140: p.scores_140+s140,
+      legs_played: p.legs_played+legsP, legs_won: p.legs_won+legsW
+    };
+    
+    // Update high_out if new one is higher
+    if(ho && (!p.high_out || ho > p.high_out)) updates.high_out=ho;
+    // Update low_score if new one is lower (or first one)
+    if(lo && (!p.low_score || lo < p.low_score)) updates.low_score=lo;
+
+    const{error}=await sb.from('players').update(updates).eq('name',pn);
+    if(error) console.error('Error updating '+pn, error);
+  }
+
+  toast('Week saved! Stats updated.');
+  await loadAll();
+  pg='results';rNav();R();
+}
+
+// ============================================================
+// KITTY
+// ============================================================
 function rK(){
-const K=JSON.parse(localStorage.getItem('siw_kitty')||'{"subs":0,"fines":0,"payouts":0,"log":[]}');
-const bal=(K.subs+K.fines-K.payouts);
+const subs=kittyLog.filter(k=>k.type==='subs').reduce((s,k)=>s+parseFloat(k.amount),0);
+const fines=kittyLog.filter(k=>k.type==='fines').reduce((s,k)=>s+parseFloat(k.amount),0);
+const payouts=kittyLog.filter(k=>k.type==='payouts').reduce((s,k)=>s+parseFloat(k.amount),0);
+const bal=subs+fines-payouts;
+
 return`<div class="pg">
 <div class="card" style="text-align:center">
 <div class="ct" style="justify-content:center"><span class="i">💰</span>Team Kitty</div>
 <div style="font-family:'Oswald',sans-serif;font-size:3.5rem;font-weight:700;color:var(--gold);line-height:1">£${bal.toFixed(2)}</div>
 <p style="color:var(--td);font-size:.75rem;margin-top:4px;font-family:'IBM Plex Mono',monospace">CURRENT BALANCE</p>
 <div class="stg" style="margin-top:16px">
-<div class="stb"><div class="v" style="color:var(--grn)">£${K.subs.toFixed(2)}</div><div class="l">Subs In</div></div>
-<div class="stb"><div class="v" style="color:var(--ora)">£${K.fines.toFixed(2)}</div><div class="l">Fines In</div></div>
-<div class="stb"><div class="v" style="color:var(--red)">£${K.payouts.toFixed(2)}</div><div class="l">Payouts Out</div></div>
+<div class="stb"><div class="v" style="color:var(--grn)">£${subs.toFixed(2)}</div><div class="l">Subs In</div></div>
+<div class="stb"><div class="v" style="color:var(--ora)">£${fines.toFixed(2)}</div><div class="l">Fines In</div></div>
+<div class="stb"><div class="v" style="color:var(--red)">£${payouts.toFixed(2)}</div><div class="l">Payouts Out</div></div>
 </div></div>
 <div class="card"><div class="ct"><span class="i">➕</span>Add Transaction</div>
 <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
@@ -196,41 +345,49 @@ return`<div class="pg">
 <button class="btn bo bs kt-type" data-kt="payouts" style="flex:1">Payouts</button>
 </div>
 <div style="display:flex;gap:8px;align-items:end">
-<div style="flex:1"><label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);margin-bottom:4px">Amount (£)</label>
-<input type="number" id="ktAmt" step="0.05" min="0" value="16.00" style="width:100%;background:var(--bg4);border:1px solid var(--tf);border-radius:var(--rs);padding:8px 12px;color:var(--t);font-family:'Source Serif 4',serif;font-size:.85rem"></div>
-<div style="flex:2"><label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);margin-bottom:4px">Note</label>
-<input type="text" id="ktNote" placeholder="e.g. Week 19 subs (8 players)" style="width:100%;background:var(--bg4);border:1px solid var(--tf);border-radius:var(--rs);padding:8px 12px;color:var(--t);font-family:'Source Serif 4',serif;font-size:.85rem"></div>
-<button class="btn bo bs" id="ktAdd" style="padding:8px 16px">Add</button>
+<div style="flex:1"><div class="fg"><label>Amount (£)</label><input type="number" id="ktAmt" step="0.05" min="0" value="16.00"></div></div>
+<div style="flex:2"><div class="fg"><label>Note</label><input type="text" id="ktNote" placeholder="e.g. Week 19 subs (8 players)"></div></div>
+<button class="btn bg bs" id="ktAdd" style="padding:8px 16px;margin-bottom:14px">Add</button>
 </div></div>
 <div class="card"><div class="ct"><span class="i">📜</span>Transaction Log</div>
-${K.log.length?K.log.slice().reverse().map(e=>{
+${kittyLog.length?kittyLog.slice().reverse().map(e=>{
 const col=e.type==='subs'?'var(--grn)':e.type==='fines'?'var(--ora)':'var(--red)';
 const sign=e.type==='payouts'?'-':'+';
-return`<div class="fr"><div><span style="color:${col};font-family:'IBM Plex Mono',monospace;font-size:.7rem;text-transform:uppercase">${e.type}</span> <span style="color:var(--td);font-size:.8rem">${e.note||''}</span><br><span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tf)">${e.date}</span></div><span style="color:${col};font-family:'IBM Plex Mono',monospace;font-weight:600">${sign}£${e.amount.toFixed(2)}</span></div>`}).join(''):'<p style="color:var(--td);font-size:.85rem">No transactions yet. Add your first subs entry above.</p>'}
+const d=e.created_at?new Date(e.created_at).toLocaleDateString('en-GB'):'';
+return`<div class="fr"><div><span style="color:${col};font-family:'IBM Plex Mono',monospace;font-size:.7rem;text-transform:uppercase">${e.type}</span> <span style="color:var(--td);font-size:.8rem">${e.note||''}</span><br><span style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tf)">${d}</span></div><span style="color:${col};font-family:'IBM Plex Mono',monospace;font-weight:600">${sign}£${parseFloat(e.amount).toFixed(2)}</span></div>`}).join(''):'<p style="color:var(--td);font-size:.85rem">No transactions yet.</p>'}
 </div></div>`}
 
-function bindKitty(){
+// ============================================================
+// EVENT BINDING
+// ============================================================
 let ktype='subs';
-$$('.kt-type').forEach(b=>{b.onclick=()=>{ktype=b.dataset.kt;$$('.kt-type').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-if(ktype==='subs')$('#ktAmt').value='16.00';else if(ktype==='fines')$('#ktAmt').value='1.00';else $('#ktAmt').value='3.00'}});
-const addBtn=$('#ktAdd');
-if(addBtn)addBtn.onclick=()=>{
-const amt=parseFloat($('#ktAmt').value)||0;
-const note=$('#ktNote').value.trim();
-if(!amt){toast('Enter an amount');return}
-const K=JSON.parse(localStorage.getItem('siw_kitty')||'{"subs":0,"fines":0,"payouts":0,"log":[]}');
-K[ktype]+=amt;
-K.log.push({type:ktype,amount:amt,note:note,date:new Date().toLocaleDateString('en-GB')});
-localStorage.setItem('siw_kitty',JSON.stringify(K));
-toast(`£${amt.toFixed(2)} ${ktype} added`);R()}}
+function bindAll(){
+  $$('.ck[data-pl]').forEach(e=>e.onclick=()=>{sp=e.dataset.pl;R()});
+  const bk=$('#bk');if(bk)bk.onclick=()=>{sp=null;R()};
+  $$('.sub-t button').forEach(b=>b.onclick=()=>{st=b.dataset.st;R()});
+  
+  // Add week
+  const sw=$('#saveWeek');if(sw)sw.onclick=saveWeek;
+  
+  // Kitty
+  $$('.kt-type').forEach(b=>{b.onclick=()=>{ktype=b.dataset.kt;$$('.kt-type').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  if(ktype==='subs')$('#ktAmt').value='16.00';else if(ktype==='fines')$('#ktAmt').value='1.00';else $('#ktAmt').value='3.00'}});
+  const ka=$('#ktAdd');if(ka)ka.onclick=async()=>{
+    const amt=parseFloat($('#ktAmt').value)||0;
+    const note=$('#ktNote').value.trim();
+    if(!amt){toast('Enter an amount');return}
+    const{error}=await sb.from('kitty').insert({type:ktype,amount:amt,note});
+    if(error){toast('Error: '+error.message);return}
+    toast(`£${amt.toFixed(2)} ${ktype} added`);
+    await loadAll();
+  };
+}
 
-function bind(){
-$$('.ck[data-pl]').forEach(e=>e.onclick=()=>{sp=e.dataset.pl;R()});
-const bk=$('#bk');if(bk)bk.onclick=()=>{sp=null;R()};
-$$('.sub-t button').forEach(b=>b.onclick=()=>{st=b.dataset.st;R()});
-if(pg==='kitty')bindKitty()}
-
-rNav();R();
+// ============================================================
+// INIT
+// ============================================================
+rNav();
+loadAll();
 </script>
 </body>
 </html>
