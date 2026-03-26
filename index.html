@@ -45,12 +45,12 @@ select option{background:var(--bg2)}
 .bar{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-top:4px}.bar-f{height:100%;border-radius:3px;background:var(--grn)}
 .sts{padding:10px 14px;border-radius:var(--rs);font-size:.8rem;margin-bottom:14px;display:flex;align-items:center;gap:6px}.sts.ok{background:rgba(74,222,128,.08);border:1px solid var(--grn);color:var(--grn)}.sts.err{background:rgba(217,79,79,.08);border:1px solid var(--red);color:var(--red)}.sts.inf{background:rgba(96,165,250,.08);border:1px solid var(--blu);color:var(--blu)}
 .spn{display:inline-block;width:18px;height:18px;border:2px solid var(--tf);border-top-color:var(--gold);border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
-.player-row{display:grid;grid-template-columns:120px repeat(9,1fr) 60px 60px 50px 50px;gap:4px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.75rem}
+.player-row{display:grid;grid-template-columns:120px repeat(9,1fr) 60px 60px 50px 50px 50px;gap:4px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.75rem}
 .player-row.hdr-row{font-family:'IBM Plex Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--td);border-bottom:2px solid var(--tf)}
 .player-row input{width:100%;background:var(--bg4);border:1px solid var(--tf);border-radius:4px;padding:4px 6px;color:var(--t);font-family:'IBM Plex Mono',monospace;font-size:.75rem;text-align:center}
 .player-row input:focus{outline:0;border-color:var(--bdf)}
 .player-row .pname{font-weight:600;font-size:.8rem}
-@media(max-width:768px){.player-row{grid-template-columns:90px repeat(9,1fr) 50px 50px 40px 40px;font-size:.65rem}.player-row input{padding:3px 2px;font-size:.65rem}}
+@media(max-width:768px){.player-row{grid-template-columns:90px repeat(9,1fr) 50px 50px 40px 40px 40px;font-size:.65rem}.player-row input{padding:3px 2px;font-size:.65rem}}
 @media(max-width:600px){.app{padding:6px}.card{padding:12px}table{font-size:.7rem}th,td{padding:5px 6px}.stg{grid-template-columns:repeat(2,1fr)}.fc{gap:6px;padding:10px}}
 </style>
 </head>
@@ -216,6 +216,7 @@ const pRows=players.map(p=>`
 <input type="number" min="0" class="pw-lo" value="" placeholder="—">
 <input type="number" min="0" class="pw-100" value="0" placeholder="0">
 <input type="number" min="0" class="pw-140" value="0" placeholder="0">
+<input type="number" min="0" class="pw-180" value="0" placeholder="0">
 </div>`).join('');
 
 return`<div class="pg">
@@ -244,13 +245,14 @@ return`<div class="pg">
 <div style="text-align:center">L.Scr</div>
 <div style="text-align:center">100+</div>
 <div style="text-align:center">140+</div>
+<div style="text-align:center">180</div>
 </div>
 <div class="player-row hdr-row">
 <div></div>
 <div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">GP</div>
 <div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">GP</div>
 <div style="text-align:center">W</div><div style="text-align:center">L</div><div style="text-align:center">GP</div>
-<div></div><div></div><div></div><div></div>
+<div></div><div></div><div></div><div></div><div></div>
 </div>
 ${pRows}
 </div>
@@ -282,16 +284,13 @@ async function saveWeek(){
     const sw=v('.pw-sw'),sl=v('.pw-sl'),sg=v('.pw-sg');
     const ho=parseInt(row.querySelector('.pw-ho')?.value)||null;
     const lo=parseInt(row.querySelector('.pw-lo')?.value)||null;
-    const s100=v('.pw-100'),s140=v('.pw-140');
+    const s100=v('.pw-100'),s140=v('.pw-140'),s180=v('.pw-180');
     
     // Skip players with no activity
     const totalGP=tg+dg+sg;
-    if(totalGP===0 && s100===0 && s140===0) continue;
+    if(totalGP===0 && s100===0 && s140===0 && s180===0) continue;
     
-    const legsP=tg+dg+sg; // legs played = total games played across formats this week
-    // For legs won: each W in triples/doubles/singles counts as legs contributed
-    // But the spreadsheet tracks legs_played and legs_won differently... 
-    // We'll approximate: legs_won = sum of all W across formats
+    const legsP=tg+dg+sg;
     const legsW=tw+dw+sw;
 
     const p=players.find(x=>x.name===pn);
@@ -301,7 +300,7 @@ async function saveWeek(){
       tri_w: p.tri_w+tw, tri_l: p.tri_l+tl, tri_gp: p.tri_gp+tg,
       dbl_w: p.dbl_w+dw, dbl_l: p.dbl_l+dl, dbl_gp: p.dbl_gp+dg,
       sin_w: p.sin_w+sw, sin_l: p.sin_l+sl, sin_gp: p.sin_gp+sg,
-      scores_100: p.scores_100+s100, scores_140: p.scores_140+s140,
+      scores_100: p.scores_100+s100, scores_140: p.scores_140+s140, scores_180: p.scores_180+s180,
       legs_played: p.legs_played+legsP, legs_won: p.legs_won+legsW
     };
     
